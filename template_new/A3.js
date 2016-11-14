@@ -49,21 +49,31 @@ var lightColor = {type: "c", value: new THREE.Color(1.0,1.0,1.0)};
 var ambientColor = {type: "c", value: new THREE.Color(0.4,0.4,0.4)};
 var lightDirection = {type: "v3", value: new THREE.Vector3(0.49,0.79,0.49)};
 
+var white_color = new THREE.Color(1.0,1.0,1.0); // default light color for resetting purposes.
+
+
 //MATERIAL PROPERTIES 
 var kAmbient = {type: "f", value: 0.4 };
 var kDiffuse = {type: "f", value: 0.8 };
 var kSpecular = {type: "f", value: 0.8 };
 var shininess = {type: "f", value: 10.0 };
 
+var default_ambient = 0.4;
+var default_diffuse = 0.8;
+var default_specular = 0.8;
+var default_shine = 10.0;
+
+var baseColor = {type: "c", value: new THREE.Color(1.0,1.0,1.0)};
+
 // SHADER MATERIALS (Remember to change this, in order to use uniform variables.)
 var gouraudMaterial = new THREE.ShaderMaterial({
-  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, }
+  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, }
 });
 var phongMaterial = new THREE.ShaderMaterial({
-  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, }
+  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, }
 });
 var blinnPhongMaterial = new THREE.ShaderMaterial({
-  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, }
+  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, }
 });
 var textureMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, rocksTexture, }
@@ -108,15 +118,61 @@ var textureSphere = new THREE.Mesh(sphere, textureMaterial);
 textureSphere.position.set(7.5, sphereRadius, 0);
 scene.add(textureSphere);
 
+var keyboard = new THREEx.KeyboardState();
 
 // SETUP UPDATE CALL-BACK
 var render = function() {
+  checkKeyboard();
 	textureMaterial.needsUpdate = true;
 	phongMaterial.needsUpdate = true;
 	blinnPhongMaterial.needsUpdate = true;
 	gouraudMaterial.needsUpdate = true;
 	requestAnimationFrame(render);
 	renderer.render(scene, camera);
+}
+
+var random = function(x,y) {
+  return Math.floor(Math.random() * (y - x + 1) + x);
+}
+
+var reset = function() {
+  kAmbient.value = default_ambient;
+  kDiffuse.value = default_diffuse;
+  kSpecular.value = default_specular;
+  shininess.value = default_shine;
+  lightColor.value = white_color;
+  baseColor.value = white_color;
+}
+
+var last_press;
+var color_to_keep;
+
+var checkKeyboard = function() {
+
+  if (keyboard.pressed('l')) { // change light color
+    color_to_keep = random(1,3); // randomly generate which color to keep at 1.0, to maintain light intensity!
+    if (color_to_keep == 1) {
+      lightColor.value = new THREE.Color(1.0, Math.random(), Math.random());
+    } else if (color_to_keep == 2) {
+      lightColor.value = new THREE.Color(Math.random(), 1.0, Math.random());
+    } else if (color_to_keep == 3) {
+      lightColor.value = new THREE.Color(Math.random(), Math.random(), 1.0);
+    }
+  }
+  if (keyboard.pressed('m')) { // change base color
+    color_to_keep = random(1,3);
+    if (color_to_keep == 1) {
+      baseColor.value = new THREE.Color(1.0, Math.random(), Math.random());
+    } else if (color_to_keep == 2) {
+      baseColor.value = new THREE.Color(Math.random(), 1.0, Math.random());
+    } else if (color_to_keep == 3) {
+      baseColor.value = new THREE.Color(Math.random(), Math.random(), 1.0);
+    }
+  }
+
+  if (keyboard.pressed('r')) { // base reset function
+    reset();
+  }
 }
 
 render();

@@ -2,6 +2,8 @@
 varying vec2 texCoord;
 uniform sampler2D rocksTexture;
 
+
+
 void main() {
 	
 	//ADJUST THIS FILE TO SEND PROPER DATA TO THE FRAGMENT SHADER

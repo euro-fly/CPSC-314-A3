@@ -17,6 +17,7 @@ uniform vec3 lightDirection;
 varying vec3 view_normal; // v
 varying vec3 vertex_normal; // n
 
+uniform vec3 baseColor;
 
 void main() {
 
@@ -24,7 +25,7 @@ void main() {
 	vec3 light_normal = normalize(lightDirection); // l
 	vec3 diffuse = vec3(0.0,0.0,0.0);
 	if (dot(vertex_normal, light_normal) > 0.0) {
-		diffuse = kDiffuse * lightColor * dot(vertex_normal, light_normal); // Id = kD * Il * (n dot l)
+		diffuse = kDiffuse * lightColor * dot(vertex_normal, light_normal) * baseColor; // Id = kD * Il * (n dot l)
 	} // otherwise it's just the zero vector, in the case of total internal reflection...
 
 	vec3 reflection = reflect(-light_normal, vertex_normal);
@@ -38,7 +39,7 @@ void main() {
 		// Is = kS * Il * (n dot h)^Ns
 		// Blinn-Phong uses the Half vector H in this case
 	} 
-	vec3 ambient = kAmbient * ambientColor; // Ia = Il * kA
+	vec3 ambient = kAmbient * ambientColor * baseColor; // Ia = Il * kA
 
 	gl_FragColor = vec4(ambient + diffuse + specular, 1.0); // add 'em up! we're done!!!
 }
