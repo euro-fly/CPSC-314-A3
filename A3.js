@@ -61,23 +61,23 @@ var baseColor = {type: "c", value: new THREE.Color(1.0,1.0,1.0)};
 
 
 //TODO: set up separate CubeCamera objects for the three reflective spheres!
-var cubeCamera = new THREE.CubeCamera(1,1000, 256);
+var cubeCamera = new THREE.CubeCamera(1,1000, sphereRadius * 2);
 cubeCamera.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
 cubeCamera.position.copy(camera.position);
 scene.add(cubeCamera);
 
-var gouraudCube = new THREE.CubeCamera(1, 1000, 256);
+var gouraudCube = new THREE.CubeCamera(1, 1000, sphereRadius * 2.0);
 gouraudCube.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
 gouraudCube.position.set(-7.5, sphereRadius, 0);
 scene.add(gouraudCube);
 
-var phongCube = new THREE.CubeCamera(1, 1000, 256);
+var phongCube = new THREE.CubeCamera(1, 1000, sphereRadius * 2.0);
 phongCube.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
 phongCube.position.set(-2.5, sphereRadius, 0);
 scene.add(phongCube);
 
 
-var blinnPhongCube = new THREE.CubeCamera(1, 1000, 256);
+var blinnPhongCube = new THREE.CubeCamera(1, 1000, sphereRadius * 2.0);
 blinnPhongCube.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
 blinnPhongCube.position.set(2.5, sphereRadius, 0);
 scene.add(blinnPhongCube);
