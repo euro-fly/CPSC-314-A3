@@ -19,6 +19,9 @@ varying vec3 vertex_normal; // n
 
 uniform vec3 baseColor;
 
+varying vec3 angle;
+uniform samplerCube cubemapTex;
+
 void main() {
 
 	// basically the same as in gouraud.vs, except our v and n are already computed
@@ -39,8 +42,10 @@ void main() {
 	} // the additional "shininess == 0" clause is b/c even if our dot product is 0 or < 0, it's 1 if its exponent is 0
 	// otherwise it's a zero vector because, again, total internal reflection etc.
 
+	vec4 tex_color = textureCube(cubemapTex, angle);
+
 	vec3 ambient = kAmbient * ambientColor * baseColor; // Ia = Il * kA
 
-	gl_FragColor = vec4(ambient + diffuse + specular, 1.0); // add 'em up! we're done!!!
+	gl_FragColor = tex_color * vec4(ambient + diffuse + specular, 1.0); // add 'em up! we're done!!!
 
 }
