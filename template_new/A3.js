@@ -33,7 +33,7 @@ resize();
 
 
 //ROCKS TEXTURE 
-var rocksTexture =  {type: "t", value:  THREE.ImageUtils.loadTexture('images/lava-texture.jpg')} ; // I had to modify this to match the slides...
+var rocksTexture =  {type: "t", value:  THREE.ImageUtils.loadTexture('template_new/images/lava-texture.jpg')} ; // I had to modify this to match the slides...
 
 //LIGHTING PROPERTIES
 var lightColor = {type: "c", value: new THREE.Color(1.0,1.0,1.0)};
@@ -85,7 +85,7 @@ var textureMaterial = new THREE.ShaderMaterial({
     texture: rocksTexture, isFloor: {type: "i", value: 0 }, cubemapTex: cubeCameraTex,}});
 
 // FLOOR 
-var floorTexture = {type: "t", value: THREE.ImageUtils.loadTexture('images/checkerboard.jpg')};
+var floorTexture = {type: "t", value: THREE.ImageUtils.loadTexture('template_new/images/checkerboard.jpg')};
 floorTexture.value.wrapS = floorTexture.value.wrapT = THREE.RepeatWrapping;
 floorTexture.value.repeat.set(4,4);
 
@@ -108,16 +108,16 @@ var shaderFiles = [
 ];
 
 new THREE.SourceLoader().load(shaderFiles, function(shaders) {
- gouraudMaterial.vertexShader = shaders['glsl/gouraud.vs.glsl'];
- gouraudMaterial.fragmentShader = shaders['glsl/gouraud.fs.glsl'];
- phongMaterial.vertexShader = shaders['glsl/phong.vs.glsl'];
- phongMaterial.fragmentShader = shaders['glsl/phong.fs.glsl'];
- blinnPhongMaterial.vertexShader = shaders['glsl/blinnPhong.vs.glsl'];
- blinnPhongMaterial.fragmentShader = shaders['glsl/blinnPhong.fs.glsl'];
- textureMaterial.fragmentShader = shaders['glsl/texture.fs.glsl'];
- textureMaterial.vertexShader = shaders['glsl/texture.vs.glsl'];
- floorMaterial.fragmentShader = shaders['glsl/texture.fs.glsl'];
- floorMaterial.vertexShader = shaders['glsl/texture.vs.glsl'];
+ gouraudMaterial.vertexShader = shaders['template_new/glsl/gouraud.vs.glsl'];
+ gouraudMaterial.fragmentShader = shaders['template_new/glsl/gouraud.fs.glsl'];
+ phongMaterial.vertexShader = shaders['template_new/glsl/phong.vs.glsl'];
+ phongMaterial.fragmentShader = shaders['template_new/glsl/phong.fs.glsl'];
+ blinnPhongMaterial.vertexShader = shaders['template_new/glsl/blinnPhong.vs.glsl'];
+ blinnPhongMaterial.fragmentShader = shaders['template_new/glsl/blinnPhong.fs.glsl'];
+ textureMaterial.fragmentShader = shaders['template_new/glsl/texture.fs.glsl'];
+ textureMaterial.vertexShader = shaders['template_new/glsl/texture.vs.glsl'];
+ floorMaterial.fragmentShader = shaders['template_new/glsl/texture.fs.glsl'];
+ floorMaterial.vertexShader = shaders['template_new/glsl/texture.vs.glsl'];
 })
 
 // CREATE SPHERES
