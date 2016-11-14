@@ -39,6 +39,8 @@ var lightColor = {type: "c", value: new THREE.Color(1.0,1.0,1.0)};
 var ambientColor = {type: "c", value: new THREE.Color(0.4,0.4,0.4)};
 var lightDirection = {type: "v3", value: new THREE.Vector3(0.49,0.79,0.49)};
 
+var default_direction = new THREE.Vector3(0.49,0.79,0.49);
+
 var white_color = new THREE.Color(1.0,1.0,1.0); // default light color for resetting purposes.
 
 
@@ -149,6 +151,7 @@ var reset = function() {
   shininess.value = default_shine;
   lightColor.value = white_color;
   baseColor.value = white_color;
+  lightDirection.value = default_direction;
 }
 
 var last_press;
@@ -175,6 +178,22 @@ var checkKeyboard = function() {
     } else if (color_to_keep == 3) {
       baseColor.value = new THREE.Color(Math.random(), Math.random(), 1.0);
     }
+  }
+
+  if (keyboard.pressed('a')) { // randomly change ambient
+    kAmbient.value = Math.random() / 2.0; // we divide by 2 so we keep kA = kD / 2, at least... on average
+  }
+
+  if (keyboard.pressed('d')) { // randomly change diffuse
+    kDiffuse.value = Math.random();
+  }
+
+  if (keyboard.pressed('s')) { // randomly change specular
+    kSpecular.value = Math.random();
+  }
+
+  if (keyboard.pressed('q')) { // randomly change direction of light
+    lightDirection.value = new THREE.Vector3(Math.random(), Math.random(), Math.random());
   }
 
   if (keyboard.pressed('r')) { // base reset function

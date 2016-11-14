@@ -31,8 +31,7 @@ void main() {
 	if (isFloor != 1) {
 		texColor *= vec4(baseColor, 1.0);
 	}
-
-	 
+	
 	// basically the same as in gouraud.vs, except our v and n are already computed
 	vec3 light_normal = normalize(lightDirection); // l
 	vec4 diffuse = vec4(0.0,0.0,0.0,0.0);
