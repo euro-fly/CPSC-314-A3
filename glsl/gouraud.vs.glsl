@@ -25,7 +25,7 @@ void main() {
 	vec4 diffuse = vec4(0.0,0.0,0.0,0.0);
 
 
-	vec3 angle = vec3(position - cameraPosition);
+	vec3 angle = normalize(vec3(position - cameraPosition));
 
 	vec4 tex_color = textureCube(cubemapTex, angle);
 
