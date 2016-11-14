@@ -70,15 +70,15 @@ var cubeCameraTex = {type: "t", value: cubeCamera.renderTarget};
 // SHADER MATERIALS (Remember to change this, in order to use uniform variables.)
 var gouraudMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, 
-    cubemapTex: cubeCameraTex, }
+    cubemapTex: cubeCameraTex,}
 });
 var phongMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor,
-  cubemapTex: cubeCameraTex, }
+  cubemapTex: cubeCameraTex,}
 });
 var blinnPhongMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor,
-  cubemapTex: cubeCameraTex, }
+  cubemapTex: cubeCameraTex,}
 });
 var textureMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, 
@@ -145,6 +145,7 @@ var keyboard = new THREEx.KeyboardState();
 // SETUP UPDATE CALL-BACK
 var render = function() {
   checkKeyboard();
+
 	textureMaterial.needsUpdate = true;
 	phongMaterial.needsUpdate = true;
 	blinnPhongMaterial.needsUpdate = true;

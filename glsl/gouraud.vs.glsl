@@ -24,9 +24,13 @@ void main() {
 	vec3 vertex_normal = normalize(normalMatrix * normal); // n
 	vec4 diffuse = vec4(0.0,0.0,0.0,0.0);
 
-	vec4 tex_color = textureCube(cubemapTex, vertex_normal);
+
+	vec3 angle = vec3(position - cameraPosition);
+
+	vec4 tex_color = textureCube(cubemapTex, angle);
+
 	if (dot(vertex_normal, light_normal) > 0.0) {
-		diffuse = vec4(kDiffuse * lightColor * dot(vertex_normal, light_normal) * baseColor, 1.0) * tex_color; // Id = kD * Il * (n dot l)
+		diffuse = vec4(kDiffuse * lightColor * dot(vertex_normal, light_normal) * baseColor, 1.0); // Id = kD * Il * (n dot l)
 	} // otherwise it's just the zero vector, in the case of total internal reflection...
 
 	vec3 reflection = reflect(-light_normal, vertex_normal);
@@ -44,9 +48,8 @@ void main() {
 
 	vec4 ambient = vec4(kAmbient * ambientColor * baseColor, 1.0); // Ia = Il * kA
 
-	
 
-	V_Color = vec4(ambient + diffuse + specular); // add 'em up! we're done!!!
+	V_Color = tex_color * vec4(ambient + diffuse + specular); // add 'em up! we're done!!!
 
 	// Position
 	gl_Position = projectionMatrix *  modelViewMatrix * vec4(position, 1.0);
