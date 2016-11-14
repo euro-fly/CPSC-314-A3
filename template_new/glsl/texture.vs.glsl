@@ -24,7 +24,13 @@ uniform int isFloor;
 void main() {
 	
 	//ADJUST THIS FILE TO SEND PROPER DATA TO THE FRAGMENT SHADER
-	texCoord = uv;
+	if (isFloor == 1) {
+		texCoord = uv * 4.0;
+	}
+	else {
+		texCoord = uv;
+	}
+	
    
     // Multiply each vertex by the model-view matrix and the projection matrix to get final vertex position
     V_Normal_VCS = vec4(normal, 1.0);

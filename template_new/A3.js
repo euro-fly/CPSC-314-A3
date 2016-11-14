@@ -74,6 +74,8 @@ var textureMaterial = new THREE.ShaderMaterial({
 
 // FLOOR 
 var floorTexture = {type: "t", value: THREE.ImageUtils.loadTexture('images/checkerboard.jpg')};
+floorTexture.value.wrapS = floorTexture.value.wrapT = THREE.RepeatWrapping;
+floorTexture.value.repeat.set(4,4);
 
 var floorMaterial = new THREE.ShaderMaterial({
   side: THREE.DoubleSide,
