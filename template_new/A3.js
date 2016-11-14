@@ -64,7 +64,7 @@ var gouraudMaterial = new THREE.ShaderMaterial({
     shininess: shininess,
     lightColor: lightColor,
     ambientColor: ambientColor,
-    lightDirection, lightDirection,
+    lightDirection: lightDirection,
   }
 });
 var phongMaterial = new THREE.ShaderMaterial({
@@ -75,11 +75,32 @@ var phongMaterial = new THREE.ShaderMaterial({
     shininess: shininess,
     lightColor: lightColor,
     ambientColor: ambientColor,
-    lightDirection, lightDirection,
+    lightDirection: lightDirection,
   }
 });
-var blinnPhongMaterial = new THREE.ShaderMaterial();
-var textureMaterial = new THREE.ShaderMaterial();
+var blinnPhongMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    kAmbient: kAmbient,
+    kDiffuse: kDiffuse,
+    kSpecular: kSpecular,
+    shininess: shininess,
+    lightColor: lightColor,
+    ambientColor: ambientColor,
+    lightDirection: lightDirection,
+  }
+});
+var textureMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    kAmbient: kAmbient,
+    kDiffuse: kDiffuse,
+    kSpecular: kSpecular,
+    shininess: shininess,
+    lightColor: lightColor,
+    ambientColor: ambientColor,
+    lightDirection: lightDirection,
+    rocksTexture: rocksTexture,
+  }
+});
 
 // LOAD SHADERS
 var shaderFiles = [
