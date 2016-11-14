@@ -24,10 +24,7 @@ void main() {
 	vec3 vertex_normal = normalize(normalMatrix * normal); // n
 	vec4 diffuse = vec4(0.0,0.0,0.0,0.0);
 
-
-	vec3 angle = normalize(vec3(position - cameraPosition));
-
-	vec4 tex_color = textureCube(cubemapTex, angle);
+	vec4 tex_color = textureCube(cubemapTex, position);
 
 	if (dot(vertex_normal, light_normal) > 0.0) {
 		diffuse = vec4(kDiffuse * lightColor * dot(vertex_normal, light_normal) * baseColor, 1.0); // Id = kD * Il * (n dot l)
