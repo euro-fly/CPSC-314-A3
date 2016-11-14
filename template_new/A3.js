@@ -31,16 +31,6 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-// FLOOR 
-var floorTexture = new THREE.ImageUtils.loadTexture('images/checkerboard.jpg');
-floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-floorTexture.repeat.set(4,4);
-
-var floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
-var floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(30.0, 30.0), floorMaterial);
-floor.rotation.x = Math.PI / 2;
-scene.add(floor);
-
 //ROCKS TEXTURE 
 var rocksTexture =  {type: "t", value:  THREE.ImageUtils.loadTexture('images/lava-texture.jpg')} ; // I had to modify this to match the slides...
 
@@ -76,8 +66,22 @@ var blinnPhongMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, }
 });
 var textureMaterial = new THREE.ShaderMaterial({
-  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, rocksTexture, }
+  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, 
+    texture: rocksTexture, isFloor: {type: "i", value: 0 },}
 });
+
+// FLOOR 
+var floorTexture = {type: "t", value: THREE.ImageUtils.loadTexture('images/checkerboard.jpg')};
+
+var floorMaterial = new THREE.ShaderMaterial({
+  side: THREE.DoubleSide,
+  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, texture:floorTexture, 
+    isFloor: {type: "i", value: 1 },}
+ });
+
+var floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(30.0, 30.0), floorMaterial);
+floor.rotation.x = Math.PI / 2;
+scene.add(floor);
 
 // LOAD SHADERS
 var shaderFiles = [
@@ -96,6 +100,8 @@ new THREE.SourceLoader().load(shaderFiles, function(shaders) {
  blinnPhongMaterial.fragmentShader = shaders['glsl/blinnPhong.fs.glsl'];
  textureMaterial.fragmentShader = shaders['glsl/texture.fs.glsl'];
  textureMaterial.vertexShader = shaders['glsl/texture.vs.glsl'];
+ floorMaterial.fragmentShader = shaders['glsl/texture.fs.glsl'];
+ floorMaterial.vertexShader = shaders['glsl/texture.vs.glsl'];
 })
 
 // CREATE SPHERES
@@ -127,6 +133,7 @@ var render = function() {
 	phongMaterial.needsUpdate = true;
 	blinnPhongMaterial.needsUpdate = true;
 	gouraudMaterial.needsUpdate = true;
+  floorMaterial.needsUpdate = true;
 	requestAnimationFrame(render);
 	renderer.render(scene, camera);
 }

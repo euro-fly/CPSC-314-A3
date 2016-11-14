@@ -30,7 +30,7 @@ void main() {
 
 	vec3 reflection = reflect(-light_normal, vertex_normal);
 	vec3 reflection_normal = normalize(reflection); // r
-	vec3 half_vector = normalize(view_normal + light_normal); // v + l
+	vec3 half_vector = normalize((view_normal + light_normal)/2.0); // (v + l)/2
 
 	vec3 specular = vec3(0.0,0.0,0.0);
 
