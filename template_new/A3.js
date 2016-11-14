@@ -42,7 +42,7 @@ floor.rotation.x = Math.PI / 2;
 scene.add(floor);
 
 //ROCKS TEXTURE 
-var rocksTexture =  new THREE.ImageUtils.loadTexture('images/lava-texture.jpg');
+var rocksTexture =  {type: "t", value:  THREE.ImageUtils.loadTexture('images/lava-texture.jpg')} ; // I had to modify this to match the slides...
 
 //LIGHTING PROPERTIES
 var lightColor = {type: "c", value: new THREE.Color(1.0,1.0,1.0)};
@@ -57,49 +57,16 @@ var shininess = {type: "f", value: 10.0 };
 
 // SHADER MATERIALS (Remember to change this, in order to use uniform variables.)
 var gouraudMaterial = new THREE.ShaderMaterial({
-  uniforms: {
-    kAmbient: kAmbient,
-    kDiffuse: kDiffuse,
-    kSpecular: kSpecular,
-    shininess: shininess,
-    lightColor: lightColor,
-    ambientColor: ambientColor,
-    lightDirection: lightDirection,
-  }
+  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, }
 });
 var phongMaterial = new THREE.ShaderMaterial({
-  uniforms: {
-    kAmbient: kAmbient,
-    kDiffuse: kDiffuse,
-    kSpecular: kSpecular,
-    shininess: shininess,
-    lightColor: lightColor,
-    ambientColor: ambientColor,
-    lightDirection: lightDirection,
-  }
+  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, }
 });
 var blinnPhongMaterial = new THREE.ShaderMaterial({
-  uniforms: {
-    kAmbient: kAmbient,
-    kDiffuse: kDiffuse,
-    kSpecular: kSpecular,
-    shininess: shininess,
-    lightColor: lightColor,
-    ambientColor: ambientColor,
-    lightDirection: lightDirection,
-  }
+  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, }
 });
 var textureMaterial = new THREE.ShaderMaterial({
-  uniforms: {
-    kAmbient: kAmbient,
-    kDiffuse: kDiffuse,
-    kSpecular: kSpecular,
-    shininess: shininess,
-    lightColor: lightColor,
-    ambientColor: ambientColor,
-    lightDirection: lightDirection,
-    rocksTexture: rocksTexture,
-  }
+  uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, rocksTexture, }
 });
 
 // LOAD SHADERS
