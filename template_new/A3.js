@@ -67,7 +67,17 @@ var gouraudMaterial = new THREE.ShaderMaterial({
     lightDirection, lightDirection,
   }
 });
-var phongMaterial = new THREE.ShaderMaterial();
+var phongMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    kAmbient: kAmbient,
+    kDiffuse: kDiffuse,
+    kSpecular: kSpecular,
+    shininess: shininess,
+    lightColor: lightColor,
+    ambientColor: ambientColor,
+    lightDirection, lightDirection,
+  }
+});
 var blinnPhongMaterial = new THREE.ShaderMaterial();
 var textureMaterial = new THREE.ShaderMaterial();
 
