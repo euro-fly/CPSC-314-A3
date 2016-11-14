@@ -17,6 +17,9 @@ uniform vec3 lightDirection;
 varying vec3 view_normal; // v
 varying vec3 vertex_normal; // n
 
+varying vec3 angle;
+uniform samplerCube cubemapTex;
+
 uniform vec3 baseColor;
 
 void main() {
@@ -40,6 +43,7 @@ void main() {
 		// Blinn-Phong uses the Half vector H in this case
 	} 
 	vec3 ambient = kAmbient * ambientColor * baseColor; // Ia = Il * kA
+	vec4 tex_color = textureCube(cubemapTex, angle);
 
-	gl_FragColor = vec4(ambient + diffuse + specular, 1.0); // add 'em up! we're done!!!
+	gl_FragColor = tex_color * vec4(ambient + diffuse + specular, 1.0); // add 'em up! we're done!!!
 }
