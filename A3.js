@@ -59,49 +59,26 @@ var default_shine = 10.0;
 
 var baseColor = {type: "c", value: new THREE.Color(1.0,1.0,1.0)};
 
-
-//TODO: set up separate CubeCamera objects for the three reflective spheres!
 var cubeCamera = new THREE.CubeCamera(1,1000, 256);
 cubeCamera.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
 cubeCamera.position.copy(camera.position);
 scene.add(cubeCamera);
 
-var gouraudCube = new THREE.CubeCamera(1, 1000, 256);
-gouraudCube.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
-gouraudCube.position.set(-7.5, sphereRadius, 0);
-scene.add(gouraudCube);
-
-var phongCube = new THREE.CubeCamera(1, 1000, 256);
-phongCube.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
-phongCube.position.set(-2.5, sphereRadius, 0);
-scene.add(phongCube);
-
-
-var blinnPhongCube = new THREE.CubeCamera(1, 1000, 256);
-blinnPhongCube.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
-blinnPhongCube.position.set(2.5, sphereRadius, 0);
-scene.add(blinnPhongCube);
-
-
 var cubeCameraTex = {type: "t", value: cubeCamera.renderTarget};
-var gouraudCubeTex = {type: "t", value: gouraudCube.renderTarget};
-var phongCubeTex = {type: "t", value: phongCube.renderTarget};
-var blinnPhongCubeTex = {type: "t", value: blinnPhongCube.renderTarget};
-
 
 
 // SHADER MATERIALS (Remember to change this, in order to use uniform variables.)
 var gouraudMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, 
-    cubemapTex: gouraudCubeTex,}
+    cubemapTex: cubeCameraTex,}
 });
 var phongMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor,
-  cubemapTex: phongCubeTex,}
+  cubemapTex: cubeCameraTex,}
 });
 var blinnPhongMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor,
-  cubemapTex: blinnPhongCubeTex,}
+  cubemapTex: cubeCameraTex,}
 });
 var textureMaterial = new THREE.ShaderMaterial({
   uniforms: { kAmbient, kDiffuse, kSpecular, shininess, lightColor, ambientColor, lightDirection, baseColor, 
