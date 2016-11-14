@@ -19,7 +19,9 @@ varying vec3 vertex_normal; // n
 
 uniform vec3 baseColor;
 
-varying vec3 angle;
+varying vec3 my_normal;
+
+varying float distance_camera;
 uniform samplerCube cubemapTex;
 
 void main() {
@@ -42,7 +44,7 @@ void main() {
 	} // the additional "shininess == 0" clause is b/c even if our dot product is 0 or < 0, it's 1 if its exponent is 0
 	// otherwise it's a zero vector because, again, total internal reflection etc.
 
-	vec4 tex_color = textureCube(cubemapTex, angle);
+	vec4 tex_color = textureCube(cubemapTex, my_normal);
 
 	vec3 ambient = kAmbient * ambientColor * baseColor; // Ia = Il * kA
 

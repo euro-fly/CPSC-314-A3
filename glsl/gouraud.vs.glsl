@@ -15,6 +15,8 @@ uniform vec3 baseColor;
 
 uniform samplerCube cubemapTex;
 
+varying vec4 tex_color;
+
 
 void main() {
 	// COMPUTE COLOR ACCORDING TO GOURAUD HERE
@@ -24,10 +26,9 @@ void main() {
 	vec3 vertex_normal = normalize(normalMatrix * normal); // n
 	vec4 diffuse = vec4(0.0,0.0,0.0,0.0);
 
+	vec3 angle = normalize(reflect(vec3(modelViewMatrix), vertex_normal));
 
-	vec3 angle = normalize(vec3(vertex_normal - cameraPosition));
-
-	vec4 tex_color = textureCube(cubemapTex, angle);
+	vec4 tex_color = textureCube(cubemapTex, normal);
 
 	if (dot(vertex_normal, light_normal) > 0.0) {
 		diffuse = vec4(kDiffuse * lightColor * dot(vertex_normal, light_normal) * baseColor, 1.0); // Id = kD * Il * (n dot l)

@@ -15,7 +15,8 @@ uniform vec3 lightColor; // Il
 uniform vec3 ambientColor; // Il (ambient)
 uniform vec3 lightDirection;
 
-varying vec3 angle;
+varying vec3 my_normal;
+varying float distance_camera;
 
 void main() {
 
@@ -25,8 +26,11 @@ void main() {
 
 	view_normal = normalize(vec3(projectionMatrix *  modelViewMatrix * V_ViewPosition));
 	vertex_normal = normalize(normalMatrix * vec3(V_Normal_VCS));
+	my_normal = normal;
 
-	angle = normalize(vec3(vertex_normal - cameraPosition));
+	
 
 	gl_Position = projectionMatrix *  modelViewMatrix * V_ViewPosition;
+
+	distance_camera = gl_Position.w;
 }
